@@ -1,0 +1,25 @@
+---
+description: Cimplify storefront — architectural rules and rebrand contract for a project scaffolded from `cimplify init`. Triggers when files like lib/brand.ts, app/globals.css, components/header.tsx, or .cimplify/project.json are in the workspace.
+globs: ["lib/brand.ts", "app/**", "components/**", ".env.local", "next.config.ts"]
+alwaysApply: true
+---
+
+# Cimplify storefront
+
+This project was scaffolded from a Cimplify template. Read `AGENTS.md` at the project root for the file ↔ `brand.X` field map and `.claude/skills/cimplify-storefront/SKILL.md` for the full playbook.
+
+## The contract
+
+1. **`lib/brand.ts`** — every visible string. If something isn't there, add a field to the `Brand` interface; don't hardcode.
+2. **`app/globals.css` `@theme` block** — palette, radius, font references.
+3. **Server Components are cached** via `'use cache'` + `cacheTag(tags.X())` + `cacheLife("hours")`. Don't downgrade to client to silence a warning.
+4. **Client islands** behind `<Suspense>`.
+5. **`cacheComponents: true`** in `next.config.ts` is non-negotiable.
+6. Use **`bun run test:run`** (vitest), not `bun test`.
+
+## Don't
+
+- Hardcode visible strings in pages/components.
+- Use `unstable_cache` (Next 16 uses `'use cache'`).
+- Bypass `getServerClient()` (loses per-request memoization).
+- Mutate without calling the matching `revalidate*` helper from `@cimplify/sdk/server`.

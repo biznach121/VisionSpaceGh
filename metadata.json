@@ -1,0 +1,13 @@
+{
+  "id": "retail",
+  "name": "Retail",
+  "tagline": "Variant-aware retail storefront with full product detail pages and instalment support.",
+  "industry": "retail",
+  "tags": ["retail", "electronics", "variants"],
+  "stability": "stable",
+  "schemaType": "Store",
+  "mock": {
+    "seedName": "retail",
+    "seedBusinessId": "bus_currents_electronics"
+  }
+}
