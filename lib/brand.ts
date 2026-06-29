@@ -496,7 +496,7 @@ export const brand: Brand = {
     ],
     "poweredBy": {
       "label": "Cimplify",
-      "href": "https://app.cimplify.io"
+      "href": "https://www.cimplify.io/"
     }
   },
   "llms": {
