@@ -44,7 +44,11 @@ export function HeroCarousel({
   // Keep only the active video audible when sound is on; everything else muted.
   useEffect(() => {
     videoRefs.current.forEach((el, index) => {
-      if (el) el.muted = muted || index !== active;
+      if (!el) return;
+      el.muted = muted || index !== active;
+      // Some browsers block declarative autoplay; start the active (muted)
+      // video imperatively so it plays without the visitor clicking play.
+      if (index === active) void el.play().catch(() => {});
     });
   }, [muted, active, safeSlides.length]);
 
@@ -95,9 +99,10 @@ export function HeroCarousel({
                   muted
                   loop
                   playsInline
+                  preload="auto"
                   poster={slide.poster}
                 >
-                  <source src={slide.src} />
+                  <source src={slide.src} type="video/mp4" />
                 </video>
               ) : (
                 <Image
